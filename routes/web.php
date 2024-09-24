@@ -1,6 +1,7 @@
 <?php
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
+use App\Models\course;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::get('/students/create', function () {
     $student->email = 'blasterblade490@gmail.com';
     $student->age = 22;
     $student->save();
-    return view('Students Created!');
+    return 'Students Created!';
 });
 
 Route::get('/students/update', function () {
@@ -32,15 +33,23 @@ Route::get('/students/update', function () {
     $student->email = 'blasterblade490@gmail.com';
     $student->age = 23;
     $student->save();
-    return view('Students Updated!');
+    return 'Students Updated!';
 });
 
 Route::get('/students/delete', function () {
     $student = Student::where('email','blasterblade490@gmail.com')->first();
     $student->delete();
-    return view('Students Delete!');
+    return 'Students Delete!';
 });
 
+Route::get('/courses/create', function(){
+    $course = new Course();
+    $course->course_name = 'Introduction to databases';
+    $course->save();
+    return 'Course Created';
+});
 
-
-
+Route::get('/courses/{id}/students' , function($id){
+    $course = Course::find($id);
+    return $course->students;
+});
